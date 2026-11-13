@@ -40,6 +40,14 @@ DEFAULT_UA = f'HTTPie/{__version__}'
 IGNORE_CONTENT_LENGTH_METHODS = frozenset([HTTP_OPTIONS])
 
 
+def retry_delay(response, default=1):
+    """Seconds to wait before retrying ``response`` (honours ``Retry-After``)."""
+    from httpie.utils import parse_retry_after
+
+    delay = parse_retry_after(response.headers.get('Retry-After'))
+    return default if delay is None else delay
+
+
 def collect_messages(
     env: Environment,
     args: argparse.Namespace,
