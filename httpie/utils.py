@@ -307,3 +307,27 @@ def is_version_greater(version_1: str, version_2: str) -> bool:
         return tuple(parts)
 
     return split_version(version_1) > split_version(version_2)
+
+
+def parse_retry_after(value, now=None):
+    """Return the number of seconds to wait for a ``Retry-After`` header.
+
+    The header is either a number of seconds or an HTTP date. Unknown
+    values return ``None`` so that callers can fall back to their default.
+    """
+    import email.utils
+    import time
+
+    if value is None:
+        return None
+    value = value.strip()
+    if value.isdigit():
+        return int(value)
+    try:
+        parsed = email.utils.parsedate_to_datetime(value)
+    except (TypeError, ValueError):
+        return None
+    if parsed is None:
+        return None
+    now = time.time() if now is None else now
+    return max(0, int(parsed.timestamp() - now))
