@@ -57,7 +57,7 @@ Please note we recently accidentally made this repo private for a moment, and Gi
 
 ## Features
 
-- Expressive and intuitive syntax
+- Expressive and intuitive syntax for humans
 - Formatted and colorized terminal output
 - Built-in JSON support
 - Forms and file uploads
