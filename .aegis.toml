@@ -1,0 +1,10 @@
+# Demo yapılandırması (Aegis, #50). Eğitilmiş model ve hafıza kullanılır.
+[gatekeeper]
+mode = "model"
+# Bant eşikleri bütçeden: PR'ların en fazla %40'ı LLM'e gider (RQ1 maliyet odaklı işletme
+# noktası, ~%60 eleme). Eşikler modelin doğrulama skorlarından, yeterli geçmiş PR birikince son
+# PR'ların skorlarından hesaplanır.
+max_llm_pr_ratio = 0.4
+
+[memory]
+top_k = 3
